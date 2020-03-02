@@ -19,11 +19,21 @@
     }
 
     canvas {
-      position: absolute;
+      position: fixed;
+      left : 20px;
     }
+
+    .myCanvas{
+      position : fixed;
+      left : 53px;
+    }
+
   </style>
 </head>
 <body>
+  <div class="container">
   <video id="video" width="640" height="360" autoplay muted></video>
+  <canvas id="myCanvas" width="150" height="150" style = "border:1px solid #d3d3d3;"></canvas>
+</div>
 </body>
 </html>
