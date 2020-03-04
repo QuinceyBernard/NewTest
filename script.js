@@ -1,7 +1,7 @@
 const video = document.getElementById('video');
 const mVideo = document.getElementById('mVideo');
 const source = document.getElementById('source');
-var mage;
+var ageID;
 
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
@@ -40,35 +40,33 @@ video.addEventListener('play', () => {
 
       var genders = detections[0].gender
       var age = Math.round(detections[0].age)
-      console.log(age)
+      // console.log(age)
 
       function generationAge(){
         if(age<=36){
-          mage = 1;
-        // console.log('millenial');
+          var ageID = 1;
       } else if(age<=50){
-        // console.log('gen x');
-        var mage = 2
+        var ageID = 2
       } else {
-        // console.log('baby boomer');
-        var mage = 3
+        var ageID = 3
         }
+        return ageID;
       }
 
       function maleVidRun(){
-        document.getElementById("mVideo").src = "/assets/test_1.mp4"
+        document.getElementById("docVid").src = "/assets/test_1.mp4"
         // mVideo.source.setAttribute('/assets/test_1.mp4', srcVideo);
-        mVideo.load();
-        mVideo.play();
+        docVid.load();
+        docVid.play();
 
       }
 
       function maleVideo(){
+        maleAge = generationAge();
         if(genders === 'male'){
-          var mv = "a";
-          var ma = mv + mage
-          console.log(ma)
-          // console.log(mv);
+          var maleID = "a";
+          var maleSource = maleID + maleAge
+          console.log(maleSource)
           var m = document.getElementById("myCanvas");
           var mtx = m.getContext("2d");
           mtx.beginPath();
@@ -82,10 +80,21 @@ video.addEventListener('play', () => {
         }
       }
 
+      function femaleVidRun(){
+        document.getElementById("docVid").src = "/assets/test_2.mp4"
+        // mVideo.source.setAttribute('/assets/test_1.mp4', srcVideo);
+        docVid.load();
+        docVid.play();
+
+      }
+
       function femaleVideo(){
+        femaleAge = generationAge();
         if(genders === 'female'){
+          var femaleID = 'b'
+          var femaleSource = femaleID + femaleAge
+          console.log(femaleSource);
           var fv = 2;
-          // console.log(fv);
           var f = document.getElementById("myCanvas");
           var ftx = f.getContext("2d");
           ftx.beginPath();
@@ -93,10 +102,10 @@ video.addEventListener('play', () => {
           ftx.stroke();
           ftx.fillStyle = "red";
           ftx.fill();
+          femaleVidRun();
         }
       }
 
-      generationAge();
       maleVideo();
       femaleVideo();
 
