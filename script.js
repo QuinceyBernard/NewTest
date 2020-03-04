@@ -1,4 +1,7 @@
-const video = document.getElementById('video')
+const video = document.getElementById('video');
+const mVideo = document.getElementById('mVideo');
+const source = document.getElementById('source');
+var mage;
 
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
@@ -7,6 +10,8 @@ Promise.all([
   faceapi.nets.faceExpressionNet.loadFromUri('/models'),
   faceapi.nets.ageGenderNet.loadFromUri('/models')
 ]).then(startVideo)
+
+
 
 function startVideo() {
   navigator.getUserMedia(
@@ -34,26 +39,66 @@ video.addEventListener('play', () => {
       // drawBox.draw(canvas)
 
       var genders = detections[0].gender
-      // console.log(genders)
-      if (genders === 'female'){
-        console.log("Hello Woman")
-        var f = document.getElementById("myCanvas");
-        var ftx = f.getContext("2d");
-        ftx.beginPath();
-        ftx.rect(0,0,150,150);
-        ftx.stroke();
-        ftx.fillStyle = "red";
-        ftx.fill();
-      } else if (genders === 'male'){
-        console.log("Hello Man")
-        var m = document.getElementById("myCanvas");
-        var mtx = m.getContext("2d");
-        mtx.beginPath();
-        mtx.rect(0,0,150,150);
-        mtx.stroke();
-        mtx.fillStyle = "blue";
-        mtx.fill();
+      var age = Math.round(detections[0].age)
+      console.log(age)
+
+      function generationAge(){
+        if(age<=36){
+          mage = 1;
+        // console.log('millenial');
+      } else if(age<=50){
+        // console.log('gen x');
+        var a = 2
+      } else {
+        // console.log('baby boomer');
+        var a = 3
+        }
       }
+
+      function maleVidRun(){
+        document.getElementById("mVideo").src = "/assets/test_1.mp4"
+        // mVideo.source.setAttribute('/assets/test_1.mp4', srcVideo);
+        mVideo.load();
+        mVideo.play();
+
+      }
+
+      function maleVideo(){
+        if(genders === 'male'){
+          var mv = "a";
+          var ma = mv + mage
+          console.log(ma)
+          // console.log(mv);
+          var m = document.getElementById("myCanvas");
+          var mtx = m.getContext("2d");
+          mtx.beginPath();
+          mtx.rect(0,0,150,150);
+          mtx.stroke();
+          mtx.fillStyle = "blue";
+          mtx.fill();
+          // maleVidRun();
+
+
+        }
+      }
+
+      function femaleVideo(){
+        if(genders === 'female'){
+          var fv = 2;
+          // console.log(fv);
+          var f = document.getElementById("myCanvas");
+          var ftx = f.getContext("2d");
+          ftx.beginPath();
+          ftx.rect(0,0,150,150);
+          ftx.stroke();
+          ftx.fillStyle = "red";
+          ftx.fill();
+        }
+      }
+
+      generationAge();
+      maleVideo();
+      femaleVideo();
 
 
     })
