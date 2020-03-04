@@ -48,10 +48,10 @@ video.addEventListener('play', () => {
         // console.log('millenial');
       } else if(age<=50){
         // console.log('gen x');
-        var a = 2
+        var mage = 2
       } else {
         // console.log('baby boomer');
-        var a = 3
+        var mage = 3
         }
       }
 
@@ -76,7 +76,7 @@ video.addEventListener('play', () => {
           mtx.stroke();
           mtx.fillStyle = "blue";
           mtx.fill();
-          // maleVidRun();
+          maleVidRun();
 
 
         }
