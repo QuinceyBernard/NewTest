@@ -1,4 +1,9 @@
-const video = document.getElementById('video')
+const video = document.getElementById('video');
+const mVideo = document.getElementById('mVideo');
+const source = document.getElementById('source');
+var genderID;
+var ageID;
+
 
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
@@ -7,6 +12,8 @@ Promise.all([
   faceapi.nets.faceExpressionNet.loadFromUri('/models'),
   faceapi.nets.ageGenderNet.loadFromUri('/models')
 ]).then(startVideo)
+
+
 
 function startVideo() {
   navigator.getUserMedia(
@@ -34,26 +41,43 @@ video.addEventListener('play', () => {
       // drawBox.draw(canvas)
 
       var genders = detections[0].gender
-      // console.log(genders)
-      if (genders === 'female'){
-        console.log("Hello Woman")
-        var f = document.getElementById("myCanvas");
-        var ftx = f.getContext("2d");
-        ftx.beginPath();
-        ftx.rect(0,0,150,150);
-        ftx.stroke();
-        ftx.fillStyle = "red";
-        ftx.fill();
-      } else if (genders === 'male'){
-        console.log("Hello Man")
-        var m = document.getElementById("myCanvas");
-        var mtx = m.getContext("2d");
-        mtx.beginPath();
-        mtx.rect(0,0,150,150);
-        mtx.stroke();
-        mtx.fillStyle = "blue";
-        mtx.fill();
+      var age = Math.round(detections[0].age)
+      // console.log (age)
+      // console.log (genders)
+
+      function generationGender(){
+        if(genders === "male"){
+          var genderID = "a";
+        } if (genders === "female"){
+          var genderID = "b";
+        }
+        return genderID;
       }
+
+      function generationAge(){
+        if(age<=36){
+          var ageID = 1;
+      } else if(age<=50){
+        var ageID = 2
+      } else {
+        var ageID = 3
+        }
+        return ageID;
+        // console.log(ageID)
+      }
+
+
+      function documentarySelection(){
+         documentaryGender = generationGender();
+         documentaryAge = generationAge();
+         console.log(documentaryGender);
+         console.log(documentaryAge);
+         document.getElementById("docVid").src = "/assets/test_" + documentaryGender + documentaryAge + ".mp4"
+         docVid.load();
+         docVid.play();
+      }
+
+      documentarySelection();
 
 
     })
