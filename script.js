@@ -1,7 +1,9 @@
 const video = document.getElementById('video');
 const mVideo = document.getElementById('mVideo');
 const source = document.getElementById('source');
+var genderID;
 var ageID;
+
 
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
@@ -40,7 +42,17 @@ video.addEventListener('play', () => {
 
       var genders = detections[0].gender
       var age = Math.round(detections[0].age)
-      // console.log(age)
+      // console.log (age)
+      // console.log (genders)
+
+      function generationGender(){
+        if(genders === "male"){
+          var genderID = "a";
+        } if (genders === "female"){
+          var genderID = "b";
+        }
+        return genderID;
+      }
 
       function generationAge(){
         if(age<=36){
@@ -51,63 +63,21 @@ video.addEventListener('play', () => {
         var ageID = 3
         }
         return ageID;
+        // console.log(ageID)
       }
 
-      function maleVidRun(){
-        document.getElementById("docVid").src = "/assets/test_1.mp4"
-        // mVideo.source.setAttribute('/assets/test_1.mp4', srcVideo);
-        docVid.load();
-        docVid.play();
 
+      function documentarySelection(){
+         documentaryGender = generationGender();
+         documentaryAge = generationAge();
+         console.log(documentaryGender);
+         console.log(documentaryAge);
+         document.getElementById("docVid").src = "/assets/test_" + documentaryGender + documentaryAge + ".mp4"
+         docVid.load();
+         docVid.play();
       }
 
-      function maleVideo(){
-        maleAge = generationAge();
-        if(genders === 'male'){
-          var maleID = "a";
-          var maleSource = maleID + maleAge
-          console.log(maleSource)
-          var m = document.getElementById("myCanvas");
-          var mtx = m.getContext("2d");
-          mtx.beginPath();
-          mtx.rect(0,0,150,150);
-          mtx.stroke();
-          mtx.fillStyle = "blue";
-          mtx.fill();
-          maleVidRun();
-
-
-        }
-      }
-
-      function femaleVidRun(){
-        document.getElementById("docVid").src = "/assets/test_2.mp4"
-        // mVideo.source.setAttribute('/assets/test_1.mp4', srcVideo);
-        docVid.load();
-        docVid.play();
-
-      }
-
-      function femaleVideo(){
-        femaleAge = generationAge();
-        if(genders === 'female'){
-          var femaleID = 'b'
-          var femaleSource = femaleID + femaleAge
-          console.log(femaleSource);
-          var fv = 2;
-          var f = document.getElementById("myCanvas");
-          var ftx = f.getContext("2d");
-          ftx.beginPath();
-          ftx.rect(0,0,150,150);
-          ftx.stroke();
-          ftx.fillStyle = "red";
-          ftx.fill();
-          femaleVidRun();
-        }
-      }
-
-      maleVideo();
-      femaleVideo();
+      documentarySelection();
 
 
     })
