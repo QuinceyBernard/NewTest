@@ -72,7 +72,7 @@ video.addEventListener('play', () => {
          documentaryAge = generationAge();
          console.log(documentaryGender);
          console.log(documentaryAge);
-         document.getElementById("docVid").src = "/assets/test_" + documentaryGender + documentaryAge + ".mp4"
+         document.getElementById("docVid").src = "./assets/test_" + documentaryGender + documentaryAge + ".mp4"
          docVid.load();
          docVid.play();
       }
