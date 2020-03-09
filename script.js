@@ -3,6 +3,10 @@ const mVideo = document.getElementById('mVideo');
 const source = document.getElementById('source');
 var genderID;
 var ageID;
+var documentaryAge;
+var documentaryGender;
+var currentGender;
+var previousGender;
 var documentaryRunning = 0;
 
 
@@ -71,28 +75,43 @@ video.addEventListener('play', () => {
       function documentarySelection(){
          documentaryGender = generationGender();
          documentaryAge = generationAge();
-         console.log(documentaryGender);
-         console.log(documentaryAge);
-
-         document.getElementById("docVid").src = "/assets/test_" + documentaryGender + documentaryAge + ".mp4"
-         var video = document.getElementById("docVid");
-=======
+         // console.log(ageID)
+         // console.log(documentaryGender);
+         // console.log(documentaryAge);
          document.getElementById("docVid").src = "./assets/test_" + documentaryGender + documentaryAge + ".mp4"
-
-         docVid.load();
-         docVid.play();
-         documentaryRunning = 1;
-         if (video.onplaying){
-           console.log("its over")
-         }
-         // if (docVid.paused){
-         //   console.log('hello')
-         // }
-         // console.log(documentaryRunning)
+         documentaryPlaying();
       }
+
+      function documentaryPlaying(){
+        // console.log(documentaryGender)
+        previousGender = documentaryGender;
+        currentGender = generationGender();
+        console.log(previousGender);
+        console.log(currentGender);
+        if ( previousGender === currentGender){
+          console.log('unchanged')
+        } else {
+          console.log('changed')
+        }
+        var video = document.getElementById("docVid");
+        docVid.load();
+        docVid.play();
+        documentaryRunning = 1;
+        docVid.onended = function(){
+          documentaryRunning = 0;
+          // something to check current age and gender id to the one given to the current video playing
+          //can seperate the play video part and have it called in docselet
+        }
+        // documentaryRunning = 1;
+      }
+
+
+
       console.log(documentaryRunning);
       if (documentaryRunning === 0){
         documentarySelection();
+
+
       }
       // documentarySelection();
 
