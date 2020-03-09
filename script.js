@@ -7,11 +7,11 @@ var documentaryRunning = 0;
 
 
 Promise.all([
-  faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-  faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-  faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-  faceapi.nets.faceExpressionNet.loadFromUri('/models'),
-  faceapi.nets.ageGenderNet.loadFromUri('/models')
+  faceapi.nets.tinyFaceDetector.loadFromUri('./models'),
+  faceapi.nets.faceLandmark68Net.loadFromUri('./models'),
+  faceapi.nets.faceRecognitionNet.loadFromUri('./models'),
+  faceapi.nets.faceExpressionNet.loadFromUri('./models'),
+  faceapi.nets.ageGenderNet.loadFromUri('./models')
 ]).then(startVideo)
 
 
@@ -73,8 +73,12 @@ video.addEventListener('play', () => {
          documentaryAge = generationAge();
          console.log(documentaryGender);
          console.log(documentaryAge);
+
          document.getElementById("docVid").src = "/assets/test_" + documentaryGender + documentaryAge + ".mp4"
          var video = document.getElementById("docVid");
+=======
+         document.getElementById("docVid").src = "./assets/test_" + documentaryGender + documentaryAge + ".mp4"
+
          docVid.load();
          docVid.play();
          documentaryRunning = 1;
