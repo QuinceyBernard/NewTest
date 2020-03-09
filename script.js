@@ -3,6 +3,7 @@ const mVideo = document.getElementById('mVideo');
 const source = document.getElementById('source');
 var genderID;
 var ageID;
+var documentaryRunning = 0;
 
 
 Promise.all([
@@ -72,12 +73,28 @@ video.addEventListener('play', () => {
          documentaryAge = generationAge();
          console.log(documentaryGender);
          console.log(documentaryAge);
+
+         document.getElementById("docVid").src = "/assets/test_" + documentaryGender + documentaryAge + ".mp4"
+         var video = document.getElementById("docVid");
+=======
          document.getElementById("docVid").src = "./assets/test_" + documentaryGender + documentaryAge + ".mp4"
+
          docVid.load();
          docVid.play();
+         documentaryRunning = 1;
+         if (video.onplaying){
+           console.log("its over")
+         }
+         // if (docVid.paused){
+         //   console.log('hello')
+         // }
+         // console.log(documentaryRunning)
       }
-
-      documentarySelection();
+      console.log(documentaryRunning);
+      if (documentaryRunning === 0){
+        documentarySelection();
+      }
+      // documentarySelection();
 
 
     })
