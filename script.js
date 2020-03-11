@@ -78,7 +78,7 @@ video.addEventListener('play', () => {
          // console.log(ageID)
          // console.log(documentaryGender);
          // console.log(documentaryAge);
-         document.getElementById("docVid").src = "./assets/test_" + documentaryGender + documentaryAge + ".mp4"
+         document.getElementById("docVid").src = "./assets/V02_" + documentaryGender + documentaryAge + ".mp4"
          documentaryPlaying();
       }
 
