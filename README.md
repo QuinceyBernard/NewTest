@@ -4,9 +4,9 @@
 
 > Currently, I am studying Digital Media in my final year at the University of West England and am required to research, develop and build a project over the span of the academic year. For my project, I looked into the ethical issues surrounding facial recognition and its issues with non-white male faces. Using Face-API.js to categorise the viewer by their gender and age classification (Millenial, Gen X, Baby Boomer). Depending on the categorisation of the viewer a specific documentary video is shown that aims to highlight the issues with the technology to the viewer through various ways.
 
-## Code Samples
+## Live Demo 
 
-> You've gotten their attention in the introduction, now show a few code examples. So they get a visualization and as a bonus, make them copy/paste friendly.
+> You can see a live demo of the project by visiting the following link: https://quinceybernard.github.io/CCTP/index.html
 
 ## Installation
 
