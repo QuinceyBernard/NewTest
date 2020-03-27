@@ -9,6 +9,14 @@ var currentGender;
 var previousGender;
 var documentaryRunning = 0;
 var constraints = { audio: true, video: true};
+var iframe = document.querySelector('iframe');
+var player = new Vimeo.Player(iframe);
+var options01 = {
+  id: '246436086',
+  width: '640'
+};
+var video01Player = new Vimeo.Player('{video01_name}', options01);
+video01Player.setVolume(0);
 
 
 Promise.all([
@@ -77,13 +85,28 @@ video.addEventListener('play', () => {
       }
 
 
+      player.on('play',function(){
+        console.log('Played the video');
+      });
+
+      player.getVideoTitle().then(function(title){
+        console.log('title:',title)
+      })
+
+      function docmunetaryVimeo(){
+        video01Player.on('play', function(){
+          console.log('Played the first video');
+        });
+      }
+      documentaryVimeo();
+
       function documentarySelection(){
          documentaryGender = generationGender();
          documentaryAge = generationAge();
          // console.log(ageID)
          // console.log(documentaryGender);
          // console.log(documentaryAge);
-         document.getElementById("docVid").src = "./assets/V02_" + documentaryGender + documentaryAge + ".mp4"
+         // document.getElementById("docVid").src = "./assets/V02_" + documentaryGender + documentaryAge + ".mp4"
          documentaryPlaying();
       }
 
