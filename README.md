@@ -6,7 +6,7 @@
 
 ## Live Demo 
 
-> You can see a live demo of the project by visiting the following link: https://quinceybernard.github.io/CCTP/index.html
+> You can see a live demo of the project by visiting the following link: https://quinceybernard.github.io/Artificial-Intolerance/index.html
 
 ## Installation
 
