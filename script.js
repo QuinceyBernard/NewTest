@@ -1,5 +1,4 @@
 const video = document.getElementById('video');
-const mVideo = document.getElementById('mVideo');
 const source = document.getElementById('source');
 var genderID;
 var ageID;
@@ -9,14 +8,15 @@ var currentGender;
 var previousGender;
 var documentaryRunning = 0;
 var constraints = { audio: true, video: true};
+var vidid = ['malemillenial','femalemillenial', 'malegenx', 'femalegenx', 'maleboomer', 'femaleboomer'];
 var iframe = document.querySelector('iframe');
 var player = new Vimeo.Player(iframe);
 var options01 = {
   id: '246436086',
   width: '640'
 };
-var video01Player = new Vimeo.Player('{video01_name}', options01);
-video01Player.setVolume(0);
+var documentaryvideoPlayer = new Vimeo.Player('{video01_name}', options01);
+documentaryvideoPlayer.setVolume(0);
 
 
 Promise.all([
@@ -50,38 +50,30 @@ video.addEventListener('play', () => {
     const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions().withAgeAndGender()
     const resizedDetections = faceapi.resizeResults(detections, displaySize)
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
-    // faceapi.draw.drawDetections(canvas, resizedDetections)
-    // faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
-    // faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
     resizedDetections.forEach(detection => {
-      // const box = detection.detection.box
-      // const drawBox = new faceapi.draw.DrawBox(box, { label: Math.round(detection.age)+"years old" + detection.gender})
-      // drawBox.draw(canvas)
+
 
       var genders = detections[0].gender
       var age = Math.round(detections[0].age)
-      // console.log (age)
-      // console.log (genders)
 
       function generationGender(){
         if(genders === "male"){
-          var genderID = "a";
+          var genderID = 0;
         } if (genders === "female"){
-          var genderID = "b";
+          var genderID = 1;
         }
         return genderID;
       }
 
       function generationAge(){
         if(age<=36){
-          var ageID = 1;
+          var ageID = 0;
       } else if(age<=50){
         var ageID = 2
       } else {
-        var ageID = 3
+        var ageID = 4
         }
         return ageID;
-        // console.log(ageID)
       }
 
 
@@ -94,7 +86,7 @@ video.addEventListener('play', () => {
       })
 
       function docmunetaryVimeo(){
-        video01Player.on('play', function(){
+        documentaryvideoPlayer.on('play', function(){
           console.log('Played the first video');
         });
       }
@@ -103,19 +95,15 @@ video.addEventListener('play', () => {
       function documentarySelection(){
          documentaryGender = generationGender();
          documentaryAge = generationAge();
-         // console.log(ageID)
-         // console.log(documentaryGender);
-         // console.log(documentaryAge);
-         // document.getElementById("docVid").src = "./assets/V02_" + documentaryGender + documentaryAge + ".mp4"
+         classificationID = documentaryGender + documentaryAge;
+         vimeoID = vidid[classificationID];
+         console.log(vimeoID);
          documentaryPlaying();
       }
 
       function documentaryPlaying(){
-        // console.log(documentaryGender)
         previousGender = documentaryGender;
         currentGender = generationGender();
-        console.log(previousGender);
-        console.log(currentGender);
         if ( previousGender === currentGender){
           console.log('unchanged')
         } else {
@@ -130,18 +118,15 @@ video.addEventListener('play', () => {
           // something to check current age and gender id to the one given to the current video playing
           //can seperate the play video part and have it called in docselet
         }
-        // documentaryRunning = 1;
       }
 
 
 
-      console.log(documentaryRunning);
       if (documentaryRunning === 0){
         documentarySelection();
 
 
       }
-      // documentarySelection();
 
 
     })
