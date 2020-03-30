@@ -97,8 +97,10 @@ video.addEventListener('play', () => {
 
          video01Player.on('ended', function(){
            documentaryRunning = 0;
-           vimeoID = 0;
-           console.log('video ended');
+           // vimeoID = 0;
+           video01Player.unload()
+             console.log('video unloaded')
+             console.log('video ended');
          });
 
       }
