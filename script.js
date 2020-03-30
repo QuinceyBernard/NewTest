@@ -4,19 +4,11 @@ var genderID;
 var ageID;
 var documentaryAge;
 var documentaryGender;
-var currentGender;
-var previousGender;
 var documentaryRunning = 0;
 var constraints = { audio: true, video: true};
-var vidid = ['malemillenial','femalemillenial', 'malegenx', 'femalegenx', 'maleboomer', 'femaleboomer'];
-var iframe = document.querySelector('iframe');
-var player = new Vimeo.Player(iframe);
-var options01 = {
-  id: '246436086',
-  width: '640'
-};
-var documentaryvideoPlayer = new Vimeo.Player('{video01_name}', options01);
-documentaryvideoPlayer.setVolume(0);
+var vidid = ['402232425','402209255', '402210978', '402199002', '401422787', '402231019'];
+var vimeoID;
+
 
 
 Promise.all([
@@ -77,48 +69,44 @@ video.addEventListener('play', () => {
       }
 
 
-      player.on('play',function(){
-        console.log('Played the video');
-      });
-
-      player.getVideoTitle().then(function(title){
-        console.log('title:',title)
-      })
-
-      function docmunetaryVimeo(){
-        documentaryvideoPlayer.on('play', function(){
-          console.log('Played the first video');
-        });
-      }
-      documentaryVimeo();
 
       function documentarySelection(){
          documentaryGender = generationGender();
          documentaryAge = generationAge();
          classificationID = documentaryGender + documentaryAge;
          vimeoID = vidid[classificationID];
+
+         var myOptions = {
+           id: vimeoID,
+           width: 640,
+           height: 468,
+           autoplay: true,
+           controls: false
+         };
+
          console.log(vimeoID);
-         documentaryPlaying();
+
+         var video01Player= new Vimeo.Player('myVideo',myOptions);
+
+         video01Player.play();
+
+         video01Player.on('play',function(){
+           documentaryRunning = 1;
+           console.log('video started');
+         });
+
+         video01Player.on('ended', function(){
+           documentaryRunning = 0;
+           vimeoID = 0;
+           console.log('video ended');
+         });
+
       }
 
-      function documentaryPlaying(){
-        previousGender = documentaryGender;
-        currentGender = generationGender();
-        if ( previousGender === currentGender){
-          console.log('unchanged')
-        } else {
-          console.log('changed')
-        }
-        var video = document.getElementById("docVid");
-        docVid.load();
-        docVid.play();
-        documentaryRunning = 1;
-        docVid.onended = function(){
-          documentaryRunning = 0;
           // something to check current age and gender id to the one given to the current video playing
           //can seperate the play video part and have it called in docselet
-        }
-      }
+
+
 
 
 
